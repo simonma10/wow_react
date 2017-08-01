@@ -45,3 +45,4 @@ export function deleteToon(id, callback){
         payload: id
     }
 }
+

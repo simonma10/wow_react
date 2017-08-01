@@ -1,12 +1,9 @@
-/**
- * Created by Simon Martin on 6/20/2017.
- */
 
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'; //nearly identical to <a> tag
-import { fetchToons } from '../actions';
+import { fetchToons } from '../../actions/index';
 
 class ToonList extends Component {
     componentDidMount(){
@@ -43,9 +40,13 @@ class ToonList extends Component {
     }
 }
 
-
+/*
 function mapStateToProps(state){
     return { toons: state.toons }
-}
+}*/
+
+const mapStateToProps = (state) => {
+    return { toons: state.toons };
+};
 
 export default connect(mapStateToProps, { fetchToons })(ToonList);

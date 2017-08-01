@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchToon } from '../actions';
-import { deleteToon } from '../actions';
+import { fetchToon } from '../../actions/index';
+import { deleteToon } from '../../actions/index';
 
 class ToonDetail extends Component {
     componentDidMount(){

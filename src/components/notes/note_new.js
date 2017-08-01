@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form'; //reduxForm very similar to 'connect' helper
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux'
 
-import { createToon } from '../actions';
+import { createNote } from '../../actions/index';
 
-class ToonNew extends Component {
+class NoteNew extends Component {
     renderField(field){
         const { meta: {touched, error}} = field; //ES6 destructuring of field.meta.touched, field.meta.error etc
         const className = `form-group ${touched && error ? 'has-danger' : ''}`;
@@ -27,7 +26,7 @@ class ToonNew extends Component {
     }
 
     onSubmit(values){
-        this.props.createToon(values, () => {
+        this.props.createNote(values, () => {
             this.props.history.push('/'); //programmatic navigation back to root page
         });
     }
@@ -38,46 +37,33 @@ class ToonNew extends Component {
         return(
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
-                    label="Name" // add arbitrary properties to pass through to render function
-                    name="name"
+                    label="Note" // add arbitrary properties to pass through to render function
+                    name="details"
                     component={this.renderField} //add fn with JSX to show field on screen
                 />
-                <Field
-                    label="Class"
-                    name="class"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Spec"
-                    name="spec"
-                    component={this.renderField}
-                />
+
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
+
 }
 
 function validate(values){
 
     const errors = {};
-    if (!values.name){
-        errors.name = "Enter a name!";
+    if (!values.details){
+        errors.name = "Enter details!";
     }
-    if (!values.class){
-        errors.class = "Enter a class";
-    }
-    if (!values.spec){
-        errors.spec = "Enter a spec";
-    }
+
     return errors; // if we return empty object, form is fine to submit
 }
 
 
 export default reduxForm({
     validate,   //called on submit
-    form: 'ToonsNewForm'    //name of new form
+    form: 'NotesNewForm'    //name of new form
 })(
-    connect(null,{ createToon })(ToonNew)  //embed action creator binding within form binding!!
+    connect(null,{ createNote })(NoteNew)  //embed action creator binding within form binding!!
 );
